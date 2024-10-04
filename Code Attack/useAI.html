@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Shopping-Website</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    section {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .container-model {
+      width: 700px;
+      height: 500px;
+      background-color: #333;
+      margin: 50px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .container-suggestions {
+      width: 700px;
+      height: 500px;
+      background-color: #333;
+      margin: 50px;
+      border-radius: 10px;
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      color: #ccc;
+      flex-direction: column;
+    }
+
+    #fashionForm {
+      display: flex;
+      justify-content: space-around;
+      align-items: center;
+      flex-direction: column;
+      padding: 10px;
+      color: #fff;
+    }
+
+    #bodyType,
+    #skinColor,
+    #colorPalette,
+    #age,
+    #height {
+      background-color: #eee;
+      color: #333;
+      padding: 10px;
+      font-size: 16px;
+      border: none;
+      cursor: pointer;
+      margin: 10px;
+      border-radius: 25px;
+    }
+
+    button {
+      align-items: center;
+      background-color: #FFFFFF;
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      border-radius: .25rem;
+      box-shadow: rgba(0, 0, 0, 0.02) 0 1px 3px 0;
+      box-sizing: border-box;
+      color: rgba(0, 0, 0, 0.85);
+      cursor: pointer;
+      display: inline-flex;
+      font-family: system-ui, -apple-system, system-ui, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      font-size: 16px;
+      font-weight: 600;
+      justify-content: center;
+      line-height: 1.25;
+      margin: 0;
+      min-height: 3rem;
+      padding: calc(.875rem - 1px) calc(1.5rem - 1px);
+      position: relative;
+      text-decoration: none;
+      transition: all 250ms;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: manipulation;
+      vertical-align: baseline;
+      width: auto;
+    }
+  </style>
+</head>
+
+<body>
+  <header>
+    <div class="container-header">
+      <h1>LOGO</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">HOME</a></li>
+          <li><a href="#">CATEGORIES</a></li>
+          <li><a href="#">LOGIN</a></li>
+          <li><a href="cart.html">CART</a></li>
+          <li><a href="useAI.html">USE AI</a></li>
+        </ul>
+      </nav>
+      <div class="search">
+        <input type="text" placeholder="Search">
+        <button><i class="fas fa-search"></i></button>
+      </div>
+      <div class="user">
+        <i class="fas fa-user"></i>
+      </div>
+
+    </div>
+  </header>
+
+  <section>
+    <div class="container-model">
+      <img src="./girl-silhouette.jpeg" alt="model-image" width="250px">
+    </div>
+    <div class="container-suggestions">
+      <h1>Fashion Suggestion Tool</h1>
+      <form id="fashionForm">
+
+        <select id="bodyType" required>
+          <option value="">BODY TYPE</option>
+          <option value="pear">Pear</option>
+          <option value="apple">Apple</option>
+          <option value="rectangle">Rectangle</option>
+          <option value="hourglass">Hourglass</option>
+        </select>
+
+
+        <select id="skinColor" required>
+          <option value="">SKIN COLOR</option>
+          <option value="light">Light</option>
+          <option value="medium">Medium</option>
+          <option value="dark">Dark</option>
+        </select>
+
+
+        <input type="number" id="height" placeholder="HEIGHT (in cm)" required>
+
+
+        <select id="colorPalette" required>
+          <option value="">COLOR PALETTE</option>
+          <option value="warm">Warm</option>
+          <option value="cool">Cool</option>
+          <option value="neutral">Neutral</option>
+        </select>
+
+
+        <input type="number" id="age" placeholder="AGE" required>
+
+        <button type="submit">Get Suggestions</button>
+      </form>
+
+      <div id="suggestions"></div>
+    </div>
+  </section>
+  <footer>
+    <div class="container-footer">
+      <p>&copy; 2023 LOGO. All Rights Reserved.</p>
+    </div>
+  </footer>
+  <script src="script.js"></script>
+
+</body>
+
+</html>

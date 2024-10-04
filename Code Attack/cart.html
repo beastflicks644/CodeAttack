@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Shopping Cart</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+        }
+        body {
+            background-color: #eee;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            display: flex;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+        }
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+        .logo {
+            font-weight: bold;
+            font-size: 24px;
+        }
+        .search-bar {
+            display: flex;
+            align-items: center;
+        }
+        .search-bar input {
+            padding: 5px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+        .cart-icon, .menu-icon {
+            font-size: 20px;
+            cursor: pointer;
+        }
+        .shopping-cart {
+            flex: 2;
+            padding: 20px;
+        }
+        .payment-info {
+            flex: 1;
+            background-color: #333;
+            color: white;
+            padding: 20px;
+        }
+        h2 {
+            margin-bottom: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        th, td {
+            text-align: left;
+            padding: 10px;
+            border-bottom: 1px solid #eee;
+        }
+        .product-image {
+            width: 50px;
+            height: 50px;
+            background-color: #eee;
+            display: inline-block;
+            margin-right: 10px;
+            vertical-align: middle;
+        }
+        .product-name {
+            display: inline-block;
+            vertical-align: middle;
+        }
+        .quantity-control {
+            display: flex;
+            align-items: center;
+        }
+        .quantity-control button {
+            background: none;
+            border: none;
+            font-size: 18px;
+            cursor: pointer;
+        }
+        .remove-item {
+            color: #ccc;
+            cursor: pointer;
+        }
+        .totals {
+            margin-top: 20px;
+            text-align: right;
+        }
+        .continue-shopping a{
+            background: none;
+            border: none;
+            color: #3498db;
+            cursor: pointer;
+            margin-top: 20px;
+            text-decoration: none;
+        }
+        .payment-method {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+        .payment-method button {
+            padding: 10px;
+            background-color: #ccc;
+            border: none;
+            color: #333;
+            cursor: pointer;
+        }
+        .payment-info input {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            background-color: #ccc;
+            border: none;
+            border-bottom: 1px solid #4a6278;
+            color: white;
+        }
+        .checkout-button {
+            width: 100%;
+            padding: 15px;
+            background-color: #3498db;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="shopping-cart">
+            <header>
+                <div class="logo">LOGO</div>
+                <div class="search-bar">
+                    <input type="text" placeholder="Search">
+                    <span class="search-icon">🔍</span>
+                </div>
+            </header>
+            <h2>Shopping Cart.</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Product</th>
+                        <th>Size</th>
+                        <th>Quantity</th>
+                        <th>Total Price</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody id="cart-items">
+                    <!-- Cart items will be dynamically added here -->
+                </tbody>
+            </table>
+            <div class="totals">
+                <p>Subtotal: Rs.<span id="subtotal">149.96</span></p>
+                <p>Shipping: Rs.<span id="shipping">0</span></p>
+                <h3>Total: Rs.<span id="total">149.96</span></h3>
+            </div>
+            <button class="continue-shopping"><a href="index.html">← Continue Shopping</a></button>
+        </div>
+        <div class="payment-info">
+            <h2>Payment Info.</h2>
+            <div class="payment-method">
+                <button>Credit Card</button>
+                <button>UPI</button>
+            </div>
+            <input type="text" placeholder="Name On Card">
+            <input type="text" placeholder="Card Number">
+            <div style="display: flex; justify-content: space-between;">
+                <input type="text" placeholder="Expiration Date" style="width: 48%;">
+                <input type="text" placeholder="CVV" style="width: 48%;">
+            </div>
+            <button class="checkout-button">Check Out.</button>
+        </div>
+    </div>
+
+    <script>
+        const cartItems = [
+            { name: 'Henley T-Shirt', size: 'S', price: 29.99, quantity: 2 },
+            { name: 'High Top Sneakers', size: '10.5', price: 69.99, quantity: 1 },
+            { name: 'Sweater Hooded', size: 'S', price: 39.99, quantity: 1 }
+        ];
+
+        function updateCart() {
+            const cartItemsElement = document.getElementById('cart-items');
+            cartItemsElement.innerHTML = '';
+
+            cartItems.forEach(item => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>
+                        <span class="product-image"></span>
+                        <span class="product-name">${item.name}</span>
+                    </td>
+                    <td>${item.size}</td>
+                    <td>
+                        <div class="quantity-control">
+                            <button onclick="changeQuantity('${item.name}', -1)">-</button>
+                            <span>${item.quantity}</span>
+                            <button onclick="changeQuantity('${item.name}', 1)">+</button>
+                        </div>
+                    </td>
+                    <td>Rs.${(item.price * item.quantity).toFixed(2)}</td>
+                    <td><span class="remove-item" onclick="removeItem('${item.name}')">×</span></td>
+                `;
+                cartItemsElement.appendChild(row);
+            });
+
+            calculateTotals();
+        }
+
+        function changeQuantity(name, change) {
+            const item = cartItems.find(item => item.name === name);
+            if (item) {
+                item.quantity = Math.max(1, item.quantity + change);
+                updateCart();
+            }
+        }
+
+        function removeItem(name) {
+            const index = cartItems.findIndex(item => item.name === name);
+            if (index !== -1) {
+                cartItems.splice(index, 1);
+                updateCart();
+            }
+        }
+
+        function calculateTotals() {
+            const subtotal = cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0);
+            const shipping = 0;
+            const total = subtotal + shipping;
+
+            document.getElementById('subtotal').textContent = subtotal.toFixed(2);
+            document.getElementById('shipping').textContent = shipping.toFixed(2);
+            document.getElementById('total').textContent = total.toFixed(2);
+        }
+
+        updateCart();
+    </script>
+</body>
+</html>
